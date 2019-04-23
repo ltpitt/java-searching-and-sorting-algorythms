@@ -31,8 +31,10 @@ public final class JsonReader {
         } catch(Exception e) {
             json.append("Exception", e);
             System.out.println(e);
+        } finally {
+            return json;
         }
-        return json;
+
     }
 
 
