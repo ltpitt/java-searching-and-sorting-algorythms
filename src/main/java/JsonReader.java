@@ -21,22 +21,25 @@ public final class JsonReader {
     }
 
     public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
+        JSONObject json = new JSONObject();
         try {
+            InputStream is = new URL(url).openStream();
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
             String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
-        } finally {
+            json = new JSONObject(jsonText);
             is.close();
+        } catch(Exception e) {
+            json.append("Exception", e);
+            System.out.println(e);
         }
+        return json;
     }
 
 
     /**
      * Create a private constructor because no one should ever create a {@link JsonReader} object.
      * This class is only meant to hold static variables and methods, which can be accessed
-     * directly from the class name JsonReader (and an object instance of QueryUtils is not needed).
+     * directly from the class name JsonReader (and an object instance of JsonReader is not needed).
      */
     private JsonReader(){
 
