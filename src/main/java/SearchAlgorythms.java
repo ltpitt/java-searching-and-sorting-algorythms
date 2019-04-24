@@ -24,14 +24,30 @@ public class SearchAlgorythms {
         return airportIndex;
     }
 
-    public int binarySearch(JSONObject json){
+    public int binarySearch(JSONObject json, String cityToSearch){
+        System.out.println("Binary Search");
         ArrayList<Airport> airportsArrayList = Utilities.createAirportEntities(json);
         airportsArrayList.sort(comparing(Airport::getCity));
+        int low = 0;
+        int high = airportsArrayList.size() - 1;
+        int mid = (low + high) / 2;
         int airportIndex = -1;
+        while (low <= high) {
+            if (airportsArrayList.get(mid).getCity().compareToIgnoreCase(cityToSearch) < 0) {
+                low = mid + 1;
+            } else if (airportsArrayList.get(mid).getCity().compareToIgnoreCase(cityToSearch) == 0) {
+                airportIndex = mid;
+                break;
+            } else {
+                high = mid - 1;
+            }
+            mid = (low + high) / 2;
+        }
+        System.out.println(airportsArrayList.get(airportIndex));
         return airportIndex;
     }
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]){
         System.out.println("Retrieving data...");
         JSONObject json = new JSONObject();
         try {
@@ -44,10 +60,9 @@ public class SearchAlgorythms {
         // Linear Search
         SearchAlgorythms sa = new SearchAlgorythms();
         System.out.println("Linear Search");
-        System.out.println(sa.linearSearch(json, "EHAM"));
-
+        System.out.println(sa.linearSearch(json, "NY58"));
         // Binary Search
-
+        System.out.println(sa.binarySearch(json, "Amsterdam"));
 
     }
 
