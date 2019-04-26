@@ -9,23 +9,21 @@ public class SearchAlgorythms {
     static Logger logger = Logger.getLogger(SearchAlgorythms.class.getName());
 
 
-    public int linearSearch(JSONObject json, String icao){
+    public int linearSearch(JSONObject json, String cityToSearch){
         int airportIndex = -1;
         ArrayList<Airport> airportsArrayList = Utilities.createAirportEntities(json);
         for (Airport currentAirport : airportsArrayList) {
-            if (currentAirport.getIcao().equalsIgnoreCase(icao)) {
-                System.out.println("Found an airport with ICAO code: " + icao);
-                System.out.println(currentAirport);
+            if (currentAirport.getCity().equalsIgnoreCase(cityToSearch)) {
                 airportIndex = airportsArrayList.indexOf(currentAirport);
                 break;
             }
 
         }
+        System.out.println(airportsArrayList.get(airportIndex));
         return airportIndex;
     }
 
     public int binarySearch(JSONObject json, String cityToSearch){
-        System.out.println("Binary Search");
         ArrayList<Airport> airportsArrayList = Utilities.createAirportEntities(json);
         airportsArrayList.sort(comparing(Airport::getCity));
         int low = 0;
@@ -48,7 +46,7 @@ public class SearchAlgorythms {
     }
 
     public static void main(String args[]){
-        System.out.println("Retrieving data...");
+        System.out.println("Retrieving data...\n");
         JSONObject json = new JSONObject();
         try {
             json = Utilities.readJsonFromUrl("https://raw.githubusercontent.com/mwgg/Airports/master/airports.json");
@@ -60,8 +58,9 @@ public class SearchAlgorythms {
         // Linear Search
         SearchAlgorythms sa = new SearchAlgorythms();
         System.out.println("Linear Search");
-        System.out.println(sa.linearSearch(json, "NY58"));
+        System.out.println(sa.linearSearch(json, "Amsterdam"));
         // Binary Search
+        System.out.println("\nBinary Search");
         System.out.println(sa.binarySearch(json, "Amsterdam"));
 
     }
