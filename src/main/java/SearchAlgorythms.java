@@ -1,6 +1,7 @@
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Logger;
 import static java.util.Comparator.*;
 
@@ -49,18 +50,23 @@ public class SearchAlgorythms {
 
     public static int[] doSelectionSort(int[] arr){
 
-        for (int i = 0; i < arr.length - 1; i++)
-        {
+        for (int i = 0; i < arr.length - 1; i++) {
+
             int index = i;
-            for (int j = i + 1; j < arr.length; j++)
+
+            for (int j = i + 1; j < arr.length; j++){
                 if (arr[j] < arr[index])
                     index = j;
+            }
 
             int smallerNumber = arr[index];
             arr[index] = arr[i];
             arr[i] = smallerNumber;
+
         }
+
         return arr;
+
     }
 
 
@@ -74,21 +80,24 @@ public class SearchAlgorythms {
             json.append("Exception", e);
         }
 
-        // Linear Search
-        SearchAlgorythms sa = new SearchAlgorythms();
-        System.out.println("Linear Search");
-        System.out.println(sa.linearSearch(json, "Amsterdam"));
-        // Binary Search
-        System.out.println("\nBinary Search");
-        System.out.println(sa.binarySearch(json, "Amsterdam"));
-        // Selection Sort
-        System.out.println("\nSelection Sort");
-        int[] arr1 = {10,34,2,56,7,67,88,42};
-        int[] arr2 = doSelectionSort(arr1);
-        for(int i:arr2){
-            System.out.print(i);
-            System.out.print(", ");
+        if (!json.has("Exception")){
+            // Linear Search
+            SearchAlgorythms sa = new SearchAlgorythms();
+            System.out.println("***Linear Search");
+            System.out.println(sa.linearSearch(json, "Amsterdam"));
+            // Binary Search
+            System.out.println("\n***Binary Search");
+            System.out.println(sa.binarySearch(json, "Amsterdam"));
+        } else {
+            System.out.println("Could not retrieve JSON data, skipping Search Algorythms");
         }
+
+        // Selection Sort
+        System.out.println("\n*** Selection Sort");
+        int[] unsortedArray = {10,34,2,56,7,67,88,42};
+        System.out.println("\nUnsorted Array\n" + Arrays.toString(unsortedArray));
+        int[] sortedArray = doSelectionSort(unsortedArray);
+        System.out.println("\nSorted Array\n" + Arrays.toString(sortedArray));
 
     }
 
