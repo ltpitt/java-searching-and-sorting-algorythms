@@ -69,6 +69,19 @@ public class SearchAlgorythms {
 
     }
 
+    public static int[] doInsertionSort(int[] arr){
+        int currInd;
+        for (int pos = 1; pos < arr.length; pos++){
+            while (currInd > 0 &&
+                    arr[currInd] < arr[currInd - 1]){
+                int smallerNumber = arr[currInd];
+                arr[currInd] = arr[currInd - 1];
+                arr[currInd - 1] = smallerNumber;
+                currInd = currInd - 1;
+            }
+        }
+        return arr;
+    }
 
     public static void main(String args[]){
         System.out.println("Retrieving data...\n");
@@ -94,10 +107,18 @@ public class SearchAlgorythms {
 
         // Selection Sort
         System.out.println("\n*** Selection Sort");
-        int[] unsortedArray = {10,34,2,56,7,67,88,42};
-        System.out.println("\nUnsorted Array\n" + Arrays.toString(unsortedArray));
-        int[] sortedArray = doSelectionSort(unsortedArray);
-        System.out.println("\nSorted Array\n" + Arrays.toString(sortedArray));
+        int[] unsortedArraySelectionSort = {10,34,2,56,7,67,88,42};
+        System.out.println("\nUnsorted Array\n" + Arrays.toString(unsortedArraySelectionSort));
+        int[] sortedArraySelectionSort = doSelectionSort(unsortedArraySelectionSort);
+        System.out.println("\nSorted Array\n" + Arrays.toString(sortedArraySelectionSort));
+
+        // Insertion Sort
+        System.out.println("\n*** Insertion Sort");
+        int[] unsortedArrayInsertionSort = {10,34,2,56,7,67,88,42};
+        System.out.println("\nUnsorted Array\n" + Arrays.toString(unsortedArrayInsertionSort));
+        int[] sortedArrayInsertionSort = doInsertionSort(unsortedArrayInsertionSort);
+        System.out.println("\nSorted Array\n" + Arrays.toString(sortedArrayInsertionSort));
+
 
     }
 
